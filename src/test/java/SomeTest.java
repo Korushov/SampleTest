@@ -3,6 +3,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.concurrent.TimeUnit;
 
@@ -43,15 +44,26 @@ public class SomeTest {
         System.out.println("Push \"Enter\"");
         webDriver.findElement(By.id("email_create")).sendKeys(Keys.ENTER);
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        System.out.println(webDriver.getCurrentUrl());
-        System.out.println(webDriver.getTitle());
+
         System.out.println("Fill all required textboxes");
-        webDriver.findElement(By.id("customer_firstname")).sendKeys("User_first_name");
-        webDriver.findElement(By.id("customer_lastname")).sendKeys("User_last_name");
+        webDriver.findElement(By.id("customer_firstname")).sendKeys("UserFirstName");
+        webDriver.findElement(By.id("customer_lastname")).sendKeys("UserLastName");
         webDriver.findElement(By.id("passwd")).sendKeys("password");
         webDriver.findElement(By.id("address1")).sendKeys("Address");
         webDriver.findElement(By.id("city")).sendKeys("City");
 
+        Select dropdownState = new Select(webDriver.findElement(By.id("id_state")));
+        dropdownState.selectByValue("1");
+        webDriver.findElement(By.id("postcode")).sendKeys("12345");
+        Select dropdownCountry = new Select(webDriver.findElement(By.id("id_country")));
+        dropdownCountry.selectByValue("21");
 
+        webDriver.findElement(By.id("phone_mobile")).sendKeys("1112223344");
+        webDriver.findElement(By.id("phone_mobile")).sendKeys(Keys.ENTER);
+
+        System.out.println(webDriver.getCurrentUrl());
+        System.out.println(webDriver.getTitle());
+
+        webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 }
